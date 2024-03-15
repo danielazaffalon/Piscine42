@@ -1,0 +1,122 @@
+Ubuntu -> cd /mnt/c
+10: clean
+Primero se deben crear archivos con caractetes especiales vim ./#a :w :qa
+Esta línea de comandos utiliza el comando find para buscar archivos en el directorio actual (.) y sus subdirectorios. Los archivos buscados cumplen con una de las dos condiciones especificadas en el paréntesis:
+
+11: magic file
+-name '*~': Encuentra archivos cuyos nombres terminan con '~'.
+-o: Indica una operación OR, es decir, que se cumpla al menos una de las condiciones siguientes.
+-name '#*#': Encuentra archivos cuyos nombres comienzan y terminan con '#'.
+El resultado de la búsqueda se pasa al comando rm -f mediante la opción -exec. Esto eliminará los archivos encontrados de manera segura. El + al final asegura que find llame a rm con tantos nombres de archivos como sea posible a la vez, lo que puede ser más eficiente en términos de rendimiento.
+find . -type f -name '*~' -o -name '#*#' -exec rm -f {} \;
+{}: Será reemplazado por cada nombre de archivo encontrado por find.
+\;: Indica que esta es la terminación de la expresión -exec.
+
+Para crear un archivo mágico llamado ft_magic que esté formateado adecuadamente para detectar archivos del tipo "42" con una cadena "42" en el byte 42, puedes seguir estos pasos:
+Abre tu editor de texto preferido (puede ser nano, vim, gedit, etc.).
+	nano ft_magic
+Dentro del editor, añade la siguiente línea:
+	0     string      42     42nd byte: 42 file
+Esta línea especifica que el archivo mágico buscará la cadena "42" en el byte número 42 del archivo y, si la encuentra, identificará el archivo como del tipo "42 file".Guarda y cierra el archivo.
+Ahora, puedes usar el comando file junto con el archivo mágico ft_magic para verificar si un archivo cumple con el patrón establecido:
+	file -m ft_magic <nombre_del_archivo>
+Este comando utilizará el archivo mágico ft_magic que acabas de crear para intentar identificar el tipo de archivo basándose en el contenido del byte 42.
+- offset: La posición en bytes donde se inicia la búsqueda del patrón.
+- type: El tipo de archivo que se asocia si se encuentra el patrón.
+- pattern: El patrón que se busca en el archivo.
+- description: Una descripción textual del tipo de archivo.
+offset  type  pattern  description
+0 (inicio archivo) string (como el dato en el offset se determina) 42 42nd byte
+
+file -m ft_magic archivo
+
+Dia 2
+Ex01
+export FT_USER=dzaffalon
+export FT_USER=root
+./tu_script.sh
+
+Ex02 - Find
+
+Ex03
+find . -type f -o -type d: This part of the command uses find to search for both regular files (-type f) and directories (-type d) starting from the current directory (.).
+wc -l: Finally, wc (word count) is used to count the number of lines, which corresponds to the total number of regular files and directories found.
+find . -type f -o -type d | wc -l
+
+EX04
+ifconfig: Este comando muestra información sobre las interfaces de red en tu sistema. En este contexto, se utiliza para obtener información sobre la interfaz de red actual.
+| (pipe): Toma la salida del comando ifconfig y la pasa como entrada al siguiente comando, que es grep.
+grep ether: grep es un comando que busca patrones en un texto. En este caso, grep ether busca líneas que contienen la palabra "ether" en la salida de ifconfig. La palabra "ether" generalmente se asocia con la dirección MAC (Media Access Control) en las interfaces de red.
+
+EX05 
+touch: Creates an empty file or updates the access and modification times of an existing file.
+\\: Escapes the backslash character.
+?\$*'KwaMe'*\$?\\: Represents the desired filename. The special characters are escaped using backslashes to ensure they are treated as literal characters in the filename.
+https://stackoverflow.com/questions/49988312/how-do-i-create-files-with-special-characters-in-linux
+touch \"\\\?\$\*\'KwaMe\'\*\$\?\\\"
+echo "Contenido del archivo" > "\\?\$*'KwaMe'*\$?\\"
+
+ls: Lista el contenido de un directorio. En este caso, se utilizan algunas opciones específicas:
+
+-l: Muestra información detallada sobre los archivos, incluidos los permisos, el propietario, el grupo, el tamaño, la fecha de modificación, etc.
+-R: Lista de forma recursiva los directorios y su contenido.
+-a: Muestra archivos ocultos (los que comienzan con un punto).
+*waM*: Es un patrón de coincidencia de archivos que incluye aquellos cuyos nombres contienen la cadena "waM". Los asteriscos (*) se utilizan como comodines para representar cualquier conjunto de caracteres.
+
+|: Es el operador de tubería que redirige la salida del comando ls al siguiente comando.
+
+cat -e: cat es un comando que concatena y muestra el contenido de archivos. La opción -e se utiliza para mostrar un símbolo de dólar ($) al final de cada línea, indicando así el final de la línea.
+
+Entonces, en resumen, el comando ls -lRa *waM* muestra de manera detallada y recursiva la información de los archivos y directorios que contienen "waM" en su nombre, y luego esa salida se pasa a cat -e, que agrega un símbolo de dólar al final de cada línea cuando se muestra en la consola.
+
+EX06
+ls -l: Este comando lista información detallada sobre los archivos y directorios en el directorio actual.
+
+| (pipe): Este operador toma la salida del comando anterior (ls -l) y la pasa como entrada al siguiente comando (awk).
+
+awk 'NR % 2 == 1': awk es un poderoso lenguaje de programación para procesamiento de texto. En este caso, utilizamos awk para aplicar una condición a cada línea de la entrada. La condición es 'NR % 2 == 1', que significa que seleccionamos solo las líneas donde el número de línea (NR) es impar.
+
+NR: Variable de awk que representa el número de línea actual.
+%: Operador de módulo, que devuelve el resto de la división.
+==: Operador de igualdad.
+En resumen, la condición 'NR % 2 == 1' selecciona las líneas con números de línea impares.
+
+Entonces, el comando completo ls -l | awk 'NR % 2 == 1' imprime solo las líneas impares de la salida de ls -l, logrando así el efecto de mostrar cada otra línea, empezando desde la primera.
+
+EX07
+export FT_LINE1
+
+EX08
+who: Este comando muestra información sobre los usuarios que están actualmente conectados al sistema. Genera una lista de usuarios que están conectados y muestra detalles como sus nombres de usuario, las fechas y horas en que iniciaron sesión y desde dónde se están conectando.
+
+| (pipe): El símbolo de pipe (|) se utiliza para redirigir la salida de un comando hacia la entrada de otro comando. En este caso, estamos redirigiendo la salida del comando who hacia el comando wc.
+
+wc: Este comando significa "word count" y se utiliza para contar el número de líneas, palabras y caracteres en la entrada que recibe.
+
+-l: La opción -l de wc especifica que solo queremos contar las líneas en la entrada que recibe. En este caso, estamos contando el número de líneas de la salida del comando who, que corresponde al número de usuarios conectados al sistema.
+
+En resumen, el comando who | wc -l muestra el número de usuarios actualmente conectados al sistema al contar las líneas generadas por el comando who, que muestra información sobre los usuarios conectados.
+
+EX08
+En el contexto de LDAP (Lightweight Directory Access Protocol), la opción -i no se aplica directamente al comando grep. LDAP es un protocolo de aplicación estándar de la industria para acceder y mantener servicios de directorio distribuidos. Un servicio de directorio, como LDAP, se utiliza para almacenar y organizar información de forma jerárquica, como información de usuarios, grupos, recursos de red, entre otros.
+
+Si estás trabajando con LDAP y deseas buscar usuarios cuyos apellidos contengan "bon" (sin importar la capitalización), probablemente estés utilizando herramientas específicas para LDAP, como ldapsearch.
+
+El comando ldapsearch es una herramienta de línea de comandos que se utiliza para realizar búsquedas en un servidor LDAP. Para buscar usuarios cuyos apellidos contengan "bon" (sin importar la capitalización) usando ldapsearch, podrías usar un comando similar al siguiente:
+
+ldapsearch -xLLL -H ldap://tu_servidor_LDAP -b "base_de_busqueda" "(sn=*bon*)" | grep -i 'cn:'
+Aquí, (sn=*bon*) es el filtro de búsqueda que buscará apellidos que contengan "bon" (sin importar la capitalización). La opción -i en grep se utiliza para ignorar la capitalización al buscar en la salida de ldapsearch.
+
+EX09
+Cuando se utiliza junto con el pipe (|), bc se utiliza para calcular el resultado de una expresión matemática que se le pasa a través de la entrada estándar. En este contexto, el pipe (|) toma la salida de un comando (en este caso, probablemente una expresión aritmética) y la redirige como entrada al comando bc, que realiza el cálculo y muestra el resultado.
+Por ejemplo, si tenemos una expresión matemática en la entrada estándar como 5 + 3, podemos usar bc para calcular el resultado de la siguiente manera:
+
+echo "5 + 3" | bc
+ibase:
+ibase es una variable que se utiliza para establecer la base de entrada, es decir, la base en la que se interpretan los números ingresados. Por ejemplo, si ibase se establece en 10, todos los números ingresados se interpretarán como números decimales. Si ibase se establece en 2, los números ingresados se interpretarán como números binarios. Si se establece en 16, se interpretarán como números hexadecimales, y así sucesivamente.
+
+obase:
+obase es una variable que se utiliza para establecer la base de salida, es decir, la base en la que se mostrarán los resultados de las operaciones aritméticas. Al igual que ibase, obase puede establecerse en cualquier base válida (como 2, 8, 10, 16, etc.). Esto determinará cómo se mostrarán los resultados de las operaciones realizadas por bc.
+
+DAY2
+ex00 ggc archivo.c -o output
