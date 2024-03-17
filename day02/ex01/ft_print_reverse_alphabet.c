@@ -1,9 +1,9 @@
 #include "ft_putchar.h"
 int main(){
-	char letter='a';
-	while (letter<='z'){
+	char letter='z';
+	while (letter>='a'){
 		ft_putchar(letter);
-		letter++;
+		letter--;
 	}
 	ft_putchar('\n');
 }
