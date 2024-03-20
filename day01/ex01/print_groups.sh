@@ -1,5 +1,3 @@
-ft_user=$FT_USER
-group=$(groups $ft_user)
-output="${group#*: }"
-output="${output// /,}"
+group=$(groups $FT_USER)
+output="${group// /,}"
 echo $output
