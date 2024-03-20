@@ -1,3 +1,1 @@
-group=$(groups $FT_USER)
-output="${group// /,}"
-echo $output
+groups $FT_USER | tr ' ' ','
