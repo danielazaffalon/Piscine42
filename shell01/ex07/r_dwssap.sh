@@ -3,7 +3,8 @@ l2=$FT_LINE2
 data=$(grep -v '^#' "/etc/passwd")
 output=''
 for ((line=l1;line<=l2;line++)); do
-	output+=$(awk -F ':' 'NR == '$line' && NR % 2 == 1{ print $1 }' <<< "$data" | rev | tr '\n' ',')
+	echo $(awk -F ':' 'NR == '$line'{ print $1}' | <<< "$data" | rev | tr '\n' ',')
+	output+=$(awk -F ':' 'NR == '$line' && NR % 2 != 1{ print $1 }' <<< "$data" | rev | tr '\n' ',')
 done
 output=${output%,}
 echo $output"."
