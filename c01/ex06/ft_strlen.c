@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ft.c                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: dazaffal <dazaffal@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 23:08:15 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/26 18:13:44 by dazaffal         ###   ########.fr       */
+/*   Created: 2024/03/26 18:38:35 by dazaffal          #+#    #+#             */
+/*   Updated: 2024/03/26 18:51:29 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <unistd.h>
 
-void	ft_ft(int *nbr)
+int	ft_strlen(char *str)
 {
-	*nbr = 42;
+	int	count;
+
+	count = 0;
+	while (*str != '\0')
+	{
+		str++;
+		count++;
+	}
+	return (count);
 }
 
 /*int	main(void)
 {
-	int	a;
+	int	num;
 
-	ft_ft(&a);
-	write(1, &a, 2);
+	num = ft_strlen("Hola Mundo!!!");
+	printf("count: %i", num);
 }*/
