@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:13:11 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/25 12:24:21 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:35:22 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ void	ft_print_comb(void)
 		}
 		i++;
 	}
-	ft_putchar('\n');
 }
 
-int	main(void)
+/*int	main(void)
 {
 	ft_print_comb();
-}
+}*/

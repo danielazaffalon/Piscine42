@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:34 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/25 11:52:38 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:33:29 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_print_reverse_alphabet(void)
 		ft_putchar(letter);
 		letter--;
 	}
-	ft_putchar('\n');
 }
 
 /*int	main(void)

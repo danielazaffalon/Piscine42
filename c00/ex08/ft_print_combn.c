@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:46:23 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/25 15:02:20 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:38:38 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_putchar(char c)
 
 int	ft_is_last(char *pt_array, int n)
 {
-	int	i;
-	int	result;
+	int		i;
+	int		result;
 	char	value;
 
 	result = 1;
@@ -38,33 +38,33 @@ int	ft_is_last(char *pt_array, int n)
 void	calculate(char *pt_array, int start, int array_position, int n)
 {
 	int	i;
-	int end;
-	
+	int	end;
+
 	i = start;
 	end = 10 + start - n;
-	while (i <= end)
+	while ((i <= end) && (i < 10))
 	{
 		pt_array[array_position] = i + 48;
 		if (array_position + 1 < n)
-			calculate(pt_array, i + 1, array_position + 1, n); 
-		else {
+			calculate(pt_array, i + 1, array_position + 1, n);
+		else
+		{
 			write(1, pt_array, n);
-			if (ft_is_last(pt_array, n))
-				ft_putchar('\n'); 
-			else
+			if (!ft_is_last(pt_array, n))
 				write(1, ", ", 2);
 		}
-		i = i + 1;
+		i++;
 	}
 }
 
-void ft_print_combn(int n)
+void	ft_print_combn(int n)
 {
-	char num_array[10];
+	char	num_array[10];
+
 	calculate(num_array, 0, 0, n);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	ft_print_combn(8);
-}
+}*/

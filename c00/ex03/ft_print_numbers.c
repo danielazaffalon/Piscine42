@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:49:25 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/25 12:00:40 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:33:58 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_print_numbers(void)
 		ft_putchar(num + 48);
 		num++;
 	}
-	ft_putchar('\n');
 }
 
 /*int	main(void)

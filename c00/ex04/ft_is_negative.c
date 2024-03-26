@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:04:59 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/25 12:12:08 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:34:42 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_is_negative(int n)
 		ft_putchar('P');
 	else
 		ft_putchar('N');
-	ft_putchar('\n');
 }
 
 /*int	main(void)
