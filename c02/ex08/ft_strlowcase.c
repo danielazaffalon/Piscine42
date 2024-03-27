@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_numeric.c                                :+:      :+:    :+:   */
+/*   ft_strlowcase.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 23:02:00 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/27 10:09:41 by dazaffal         ###   ########.fr       */
+/*   Created: 2024/03/27 10:28:32 by dazaffal          #+#    #+#             */
+/*   Updated: 2024/03/27 10:31:25 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
-int	ft_str_is_numeric(char *str)
+char	*ft_strlowcase(char *str)
 {
+	char	*p_str;
+
+	p_str = str;
 	while (*str != '\0')
 	{
-		if (!((*str > 47) && (*str < 58)))
-			return (0);
+		if ((*str > 64) && (*str < 91))
+			*str = *str + 32;
 		str++;
 	}
-	return (1);
+	return (p_str);
 }
 
 /*int main(void)
 {
-	char *str = "123";
-	int	num;
+	//char *str = "HOLA";
+	char	str[] = "HOLA mUNdO";
+	//char *str = "234T";
+	//char *str = "";
+	char	*out;
 
-	num = ft_str_is_numeric(str);
-	printf("is numeric ? %s\n", num ? "true" : "false");
+	out = ft_strlowcase(str);
+	printf("%s\n%s\n", str, out);
 }*/

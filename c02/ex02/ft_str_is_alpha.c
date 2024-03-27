@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 22:27:35 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/26 23:00:35 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:53:48 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int	ft_str_is_alpha(char *str)
 
 /*int main(void)
 {
-	char *str = "";
+	char 	str[] = "jl3kjlkj";
+	char 	*p_str = str;
 	int	alph;
 
-	alph = ft_str_is_alpha(str);
+	alph = ft_str_is_alpha(p_str);
 	printf("is alphabetic %s\n", alph ? "true" : "false");
 }*/
