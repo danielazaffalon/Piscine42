@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 21:54:11 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/28 08:52:07 by dazaffal         ###   ########.fr       */
+/*   Created: 2024/03/28 10:17:22 by dazaffal          #+#    #+#             */
+/*   Updated: 2024/03/28 11:04:21 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcat(char *dest, char *src)
 {
 	char	*p_dest;
 
 	p_dest = dest;
+	while (*p_dest != '\0')
+		p_dest++;
 	while (*src != '\0')
 	{
-		*dest = *src;
-		dest++;
+		*p_dest = *src;
+		p_dest++;
 		src++;
 	}
-	*dest = '\0';
-	return (p_dest);
+	*p_dest = '\0';
+	return (dest);
 }
 
 /*int main(void)
 {
-	char	dest[20];
-	char	src[] = "dani";
-	char	*rtn;
+	char *src = "frist string";
+	char dest[30] ="second string";
+	char *rst;
 
-	rtn = ft_strcpy(dest, src);
-
-	printf("src: %s\ndest: %s\nrtn: %s\n", src, dest, rtn);
+	rst = ft_strcat(dest,src);
+	printf("src = %s\n dest = %s\n rst = %s\n", src, dest, rst);
 }*/

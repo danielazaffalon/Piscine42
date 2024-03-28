@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 21:54:11 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/28 08:52:07 by dazaffal         ###   ########.fr       */
+/*   Created: 2024/03/28 11:16:35 by dazaffal          #+#    #+#             */
+/*   Updated: 2024/03/28 13:29:13 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strstr(char *str, char *tofind)
 {
-	char	*p_dest;
+	int		i;
+	char	*point;
 
-	p_dest = dest;
-	while (*src != '\0')
+	point = 0;
+	while (*str != '\0' && point == 0)
 	{
-		*dest = *src;
-		dest++;
-		src++;
+		i = 0;
+		while (tofind[i] != '\0' && str[i] == tofind[i])
+			i++;
+		if (tofind[i] == '\0')
+			point = str;
+		str++;
 	}
-	*dest = '\0';
-	return (p_dest);
+	return (point);
 }
 
 /*int main(void)
 {
-	char	dest[20];
-	char	src[] = "dani";
-	char	*rtn;
+	char *str = "palabras";
+	char *find = "abraf";
+	char *point;
 
-	rtn = ft_strcpy(dest, src);
-
-	printf("src: %s\ndest: %s\nrtn: %s\n", src, dest, rtn);
+	point = ft_strstr(str, find);
+	printf("str = %s\nfind = %s\npointer = %s\n", str, find, point);	
 }*/

@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 21:54:11 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/28 08:52:07 by dazaffal         ###   ########.fr       */
+/*   Created: 2024/03/28 10:51:35 by dazaffal          #+#    #+#             */
+/*   Updated: 2024/03/28 12:29:24 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strncat(char *dest, char *src, unsigned int nb)
 {
-	char	*p_dest;
+	char			*p_dest;
+	unsigned int	i;
 
 	p_dest = dest;
-	while (*src != '\0')
+	i = 0;
+	while (*p_dest != '\0')
+		p_dest++;
+	while (src[i] != '\0' && i < nb)
 	{
-		*dest = *src;
-		dest++;
-		src++;
+		p_dest[i] = src[i];
+		i++;
 	}
-	*dest = '\0';
-	return (p_dest);
+	p_dest[i] = '\0';
+	return (dest);
 }
 
 /*int main(void)
 {
-	char	dest[20];
-	char	src[] = "dani";
-	char	*rtn;
+	char *src = "first string";
+	char dest[30] = "second string\0******";
+	unsigned int n = 5; 
+	char *rst;
 
-	rtn = ft_strcpy(dest, src);
-
-	printf("src: %s\ndest: %s\nrtn: %s\n", src, dest, rtn);
+	rst = ft_strncat(dest,src,n);
+	printf("src = %s\n dest = %s\n rst = %s\n", src, dest, rst);
 }*/

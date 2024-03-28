@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 21:54:11 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/28 08:52:07 by dazaffal         ###   ########.fr       */
+/*   Created: 2024/03/28 09:06:40 by dazaffal          #+#    #+#             */
+/*   Updated: 2024/03/28 09:45:47 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
-char	*ft_strcpy(char *dest, char *src)
+int	ft_strcmp(char *s1, char *s2)
 {
-	char	*p_dest;
+	int	rta;
 
-	p_dest = dest;
-	while (*src != '\0')
+	rta = 0;
+	while ((*s1 != '\0' || *s2 != '\0') && rta == 0)
 	{
-		*dest = *src;
-		dest++;
-		src++;
+		rta = *s1 - *s2;
+		s1++;
+		s2++;
 	}
-	*dest = '\0';
-	return (p_dest);
+	return (rta);
 }
 
-/*int main(void)
+/*int main (void)
 {
-	char	dest[20];
-	char	src[] = "dani";
-	char	*rtn;
-
-	rtn = ft_strcpy(dest, src);
-
-	printf("src: %s\ndest: %s\nrtn: %s\n", src, dest, rtn);
+	char *s1 = "hello world";
+	char *s2 = "hello world";
+	int result;
+	result = ft_strcmp(s1, s2);
+	printf("Result: %i\n", result);
 }*/

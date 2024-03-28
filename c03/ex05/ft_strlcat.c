@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 21:54:11 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/28 08:52:07 by dazaffal         ###   ########.fr       */
+/*   Created: 2024/03/28 12:28:19 by dazaffal          #+#    #+#             */
+/*   Updated: 2024/03/28 13:22:52 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
-char	*ft_strcpy(char *dest, char *src)
+unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 {
-	char	*p_dest;
+	unsigned int	i;
+	unsigned int	nb;
 
-	p_dest = dest;
-	while (*src != '\0')
+	i = 0;
+	while (dest[i] != '\0')
+		i++;
+	nb = size - 1;
+	while (*src != '\0' && i < nb)
 	{
-		*dest = *src;
-		dest++;
+		dest[i] = *src;
+		i++;
 		src++;
 	}
-	*dest = '\0';
-	return (p_dest);
+	dest[i] = '\0';
+	return (i);
 }
 
 /*int main(void)
 {
-	char	dest[20];
-	char	src[] = "dani";
-	char	*rtn;
+	char *src = "Secondhhhhhhhhhhhh";
+	char dest[20] = "First & ";
+	unsigned int size = 20; 
+	unsigned int rst;
 
-	rtn = ft_strcpy(dest, src);
-
-	printf("src: %s\ndest: %s\nrtn: %s\n", src, dest, rtn);
+	rst = strlcat(dest,src,size);
+	printf("src = %s\ndest = %s\nrst = %i\n", src, dest, rst);
 }*/
