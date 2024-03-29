@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:28:19 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/28 13:22:52 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:38:15 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 		src++;
 	}
 	dest[i] = '\0';
+	while (*src != '\0')
+	{
+		i++;
+		src++;
+	}
 	return (i);
 }
 

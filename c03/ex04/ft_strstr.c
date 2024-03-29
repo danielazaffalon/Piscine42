@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:16:35 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/28 13:29:13 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:41:18 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strstr(char *str, char *tofind)
 	char	*point;
 
 	point = 0;
+	if (*str == '\n' && *tofind == '\n')
+		point = str;
 	while (*str != '\0' && point == 0)
 	{
 		i = 0;
