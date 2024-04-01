@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:19:34 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/28 16:25:02 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/04/01 21:47:12 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_putchar(char c)
 void	ft_positives(int nb)
 {
 	int		i;
-	char	array_num[10];
+	char	array_num[32];
 
 	i = 9;
 	while (nb > 0 && i >= 0)
@@ -56,5 +56,9 @@ void	ft_putnbr_base(int nbr, char *base)
 
 int	main(void)
 {
-	ft_putnbr_base(-2147483648);
+	//ft_putnbr_base(-2147483648);
+	ft_putnbr_base(2147483647,"0123456789");
+	ft_putnbr_base(254,"01");
+	ft_putnbr_base(254,"0123456789ABCDEF");
+	ft_putnbr_base(254,"poniguay");
 }
