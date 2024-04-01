@@ -6,23 +6,25 @@
 /*   By: dazaffal <dazaffal@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 14:27:07 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/03/31 16:34:23 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:54:56 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
+#define N 4
 
-void	fill_board(char board[][4], char c)
+//M[m][n]; M[i][j]= *(M+(i*n+j))
+void	fill_board(int board[][N], int c)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
-	i = 0;// reemplazar por apuntadores
-	while (i < 4)
+	i = 0;
+	while (i < N)
 	{
 		j = 0;
-		while (j < 4)
+		while (j < N)
 		{
 			board[i][j] = c;
 			j++;
@@ -31,18 +33,20 @@ void	fill_board(char board[][4], char c)
 	}
 }
 
-void	print_board(char board[][4])
+void	print_board(int board[][N])
 {
 	int	i;
 	int	j;
+	char v;
 
 	i = 0;
-	while (i < 4)
+	while (i < N)
 	{
 		j = 0;
-		while (j < 4)
+		while (j < N)
 		{
-			write(1, &board[i][j], 1);
+			v = board[i][j] + 48;
+			write(1, &v, 1);
 			write(1, " ", 1);
 			j++;
 		}
@@ -51,44 +55,49 @@ void	print_board(char board[][4])
 	}
 }
 
-int	parsing(char views[][4], char *p)
+int	parsing(int views[][N], char *p)
 {
 	int	i;
 	int	j;
 	int	counter;
 
-	write(1, "Views are: \nUp\nDown\nLeft\nRight\n", 32);
+	//write(1, "Views are: \nUp\nDown\nLeft\nRight\n", 32);
 	counter = 0;
 	i = 0;
-	while (*p != '\0' && i < 4)
+	while (*p != '\0' && i < N)
 	{
 		j = 0;
-		while (*p != '\0' && j < 4)
+		while (*p != '\0' && j < N)
 		{
-			views[i][j] = *p;
-			write(1, &views[i][j], 1);
-			write(1," ",1);
+			views[i][j] = *p - 48;
+			//printf("%c ",views[i][j]+48);
 			j++;
 			p = p + 2;
 			counter++;
 		}
-		write(1, "\n", 1);
+		//printf("\n");
 		i++;
 	}
-	if (counter != 16)
+	if (counter != (N * N))
 		return (0);
 	else
 		return (1);
 }
 
-int is_valid(char **board, char **views, int row, int col, int num)
+int is_valid(int board[][N], int views[][N], int position)
 {
-	int 	i;
+	int i;
+	int acc_view[4];//up, down, left, right view
+	int last_max[4];
+	int row;
+	int col;
+	int num;
 
+	row = position / N;
+	col = position % N;
+	num = board[row][col];
 	i = 0;
-	up = views[0][col];
-	down = views[1][col];
-	while (i < 4) // verificar que no se repita l valor en a fila o en la columna
+	while (i < N)
 	{
 		if (board[row][i] == num && i != col)
 			return (0);
@@ -97,85 +106,96 @@ int is_valid(char **board, char **views, int row, int col, int num)
 		i++;
 	}
 	i = 0;
-	value = 1;
-	while (i < row)
+	while (i < 4)
 	{
-		if (board[i][col] < board[i + 1][col] // up view
-			value++;
+		acc_view[i] = 0;
+		last_max[i] = 0;
 		i++;
 	}
-	if(value != views[1][col])
-		return (0);
 	i = 0;
-	value = 1;
-	while (i > row)
+	while (i < N)
 	{
-		if (board[i][col] < board[i - 1])
-			value++;
+		if (board[i][col] == 0)
+		{
+			acc_view[0] = -1;
+			acc_view[1] = -1;
+		}
+		if (board[row][i] == 0)
+		{
+			acc_view[2] = -1;
+			acc_view[3] = -1;
+		}
+		if (acc_view[0] >= 0 && board[i][col] > last_max[0])
+		{
+			last_max[0] = board[i][col];
+			acc_view[0]++;
+		}
+		if (acc_view[1] >= 0 && board[(N - 1) - i][col] > last_max[1])
+		{
+			last_max[1] = board[(N - 1) -i][col];
+			acc_view[1]++;
+		}
+		if (acc_view[2] >= 0 && board[row][i] > last_max[2])
+		{
+			last_max[2] = board[row][i];
+			acc_view[2]++;
+		}
+		if (acc_view[3] >= 0 && board[row][(N - 1) - i] > last_max[3])
+		{
+			last_max[3] = board[row][(N - 1) -i];
+			acc_view[3]++;
+		}
 		i++;
 	}
-	if (value != views[2][col]) //down view
-   		return (0);	
-	i = 0;
-	value = 1;//minimo veo una caja
-	while (i < col) //Verificar las vistas
-	{
-		if (board[row][i] < board[row][i + 1])
-			value++;
-		i++;
-	}
-	if (value != views[2][row]) //left view
+	if ((acc_view[0] == views[0][col] || acc_view[0] == -1)
+		&& (acc_view[1] == views[1][col] || acc_view[1] == -1)
+		&& (acc_view[2] == views[2][row] || acc_view[2] == -1)
+		&& (acc_view[3] == views[3][row] || acc_view[3] == -1))
+		return (1);
+	else
 		return (0);
-	i = 3;
-	value = 1;
-	while (i > col)
-	{
-		if(board[row][i] < board[row][i - 1])
-		   value++;	
-		i--;
-	}
-	if (value != views[3][row]) //rigt view
-		return (0);
-	return (1);
 }
 
-int  solve(char **bard, int i, char **views)
+int  solve(int board[][N], int position, int views[][N])
 {
 	int row;
 	int col;
-	int num;
+	int	num;
 	
 	num = 1;
-	if (i == 16)
+	if (position == N * N)
 		return 1;
-	row = i / 4;
-	col = i % 4;
-
-	// si el tablero tiene la casilla llena, regresamos a la llamada anterior
-	if (board[row][col] != 0)
-		return solve
-
+	row = position / N;
+	col = position % N;
 	while (num <= 4)
 	{
-		if (is_valid(board, views, row, col, num) && )
+		board[row][col] = num;
+		if (is_valid(board, views, position))
+		{
+			if (solve(board,(position + 1),views))
+				return (1);
+		}
 		num++;
 	}
-
+	board[row][col] = 0;
+	return (0);
 }
 
 int	main(int ac,char **av)
 {
 	char	*input;
-	char	board[4][4];
-	char	views[4][4];
+	int		board[N][N];
+	int		views[4][N];
 
 	input = av[1];
 	if (!parsing(views, input) && ac != 2)
 	{
-		write(1, "Error: unexpecting number of arguments", 40);
+		write(1, "Error: unexpected number of arguments\n", 39);
 		return (1);
 	}
-	fill_board(board, '0');
-	solve(board, 0, views);
-	print_board(board);
+	fill_board(board, 0);
+	if (solve(board, 0, views))
+		print_board(board);
+	else
+		write(1, "Not solved\n", 11);
 }
