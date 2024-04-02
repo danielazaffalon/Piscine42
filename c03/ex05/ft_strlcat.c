@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:28:19 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/04/01 21:23:06 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:31:19 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 		src_size++;
 	while (dest[dest_size] != '\0')
 		dest_size++;
-	if (size <= dest_size + 1)
+	if (size < dest_size + 1)
 		rta = src_size + size;
 	else
 	{
