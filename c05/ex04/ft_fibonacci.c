@@ -6,32 +6,33 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:03:51 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/04/03 15:13:27 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:39:27 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
-int	ft_recursive_power(int nb, int power)
+int	ft_fibonacci(int index)
 {
-	int	count;
+	int	num;
 
-	if (power == 0)
-		count = 1;
-	else if (power > 0)
-		count = nb * ft_recursive_power(nb, power - 1);
+	num = 0;
+	if (index < 0)
+		num = -1;
+	else if (index == 0)
+		num = 0;
+	else if (index == 1)
+		num = 1;
 	else
-		count = 0;
-	return (count);
+		num = ft_fibonacci(index - 1) + ft_fibonacci(index - 2);
+	return (num);
 }
 
 /*int main(void)
 {
-	int	fac;
-	int	num;
-	int	pow;
+	int	i;
+	int	rta;
 
-	num = 2;
-	pow = 4;
-	fac = ft_recursive_power(num,pow);
-	printf("Power of: %i is\t%i\n",num,fac);
+	i = 14;
+	rta = ft_fibonacci(i);
+	printf("element i of fibonacci is: %i\n",rta);
 }*/
