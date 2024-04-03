@@ -6,21 +6,38 @@
 /*   By: dazaffal <dazaffal@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:40:28 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/04/03 19:12:08 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:52:12 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-int	ft_sqrt(int nb)
+//#include <stdio.h>
+int	ft_sqrt_cal(int n, int nb)
 {
-	if ((num * num) > nb)
-		num = 0;
-	else if (0 < nb)
-		num = ft_sqrt(nb--);
-	return (num);
+	int	rta;
+	int	mult;
+
+	mult = n * n;
+	if (mult < nb)
+		rta = ft_sqrt_cal(++n, nb);
+	else if (mult == nb)
+		rta = n;
+	else
+		rta = 0;
+	return (rta);
 }
 
-int main(void)
+int	ft_sqrt(int nb)
+{
+	int	n;
+
+	n = 0;
+	if (nb <= 0)
+		return (0);
+	else
+		return (ft_sqrt_cal(n, nb));
+}
+
+/*int main(void)
 {
 	int	i;
 	int	rta;
@@ -28,4 +45,4 @@ int main(void)
 	i = 49;
 	rta = ft_sqrt(i);
 	printf("square root of %i\tis: %i\n",i,rta);
-}
+}*/
