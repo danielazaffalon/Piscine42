@@ -1,0 +1,5 @@
+preprocesadores
+compilado .c -> .s
+ensamblaje .s -> .o
+linkado .o .a -> programa
+
