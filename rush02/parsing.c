@@ -56,6 +56,54 @@ char	*ft_copy_word(char *src)
 	return (rta);
 }
 
+char	*ft_strcpy(char *src, int len)
+{
+	char *rta;
+	int i;
+
+	rta = (char*)malloc(len + 1);
+	i = 0;
+	while(src[i] != '\0' && i < len)
+	{
+		rta[i] = src[i];
+		i++;
+	}
+	rta[i] = '\0';
+	return rta;
+}
+
+char	*ft_wordcat(char *str1, char *str2, char c)
+{
+	char	*rta;
+	int		len1;
+	int		len2;
+	int		i;
+	int		j;
+
+	len1 = ft_strlen(str1);
+	len2 = ft_strlen(str2);
+	rta = (char*)malloc(len1 + len2 + 2);
+	i = 0;
+	while (i < len1 && str1[i] != '\0')
+	{
+		rta[i] = str1[i];
+		i++;
+	}
+	rta[i] = c;
+	i++;
+	j = 0;
+	while (j < len2 && str2[j] != '\0')
+	{
+		rta[i] = str2[j];
+		i++;
+		j++;
+	}
+	rta[i] = '\0';
+	free(str1);
+	free(str2);
+	return (rta);
+}
+
 //return the beging of the line where the number is
 char	*ft_find_value(char *buffer, char *to_find, int buff_size)
 {
@@ -101,134 +149,53 @@ void	ft_print_word(char *word)
 		write(1, word++, 1);
 }
 
-char	*ft_wordcat(char *str1, char *str2, char c)
-{
-	char	*rta;
-	int		len1;
-	int		len2;
-	int		i;
-	int		j;
-
-	len1 = ft_strlen(str1);
-	len2 = ft_strlen(str2);
-	rta = (char*)malloc(len1 + len2 + 2);
-	i = 0;
-	while (i < len1 && str1[i] != '\0')
-	{
-		rta[i] = str1[i];
-		i++;
-	}
-	rta[i] = c;
-	i++;
-	j = 0;
-	while (j < len2 && str2[j] != '\0')
-	{
-		rta[i] = str2[j];
-		i++;
-		j++;
-	}
-	rta[i] = '\0';
-	free(str1);
-	free(str2);
-	return (rta);
-}
-
-void	ft_strcpy(char *str, char *src, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		str[i] = src[i];
-		i++;
-	}
-	str[i] = '\0';
-}
-
-int	ft_print_trio(char *trio,char *dic,int dic_size)
-{
-	char	*tens;
-	char	*units;
-	char	*str1;
-	
-	tens = (char*) malloc(3);
-	units = (char*) malloc(2);
-	if(trio[0] > '0')
-	{
-		units[0] = trio[0];
-		units[1] = '\0';
-		str1 = ft_find_word(dic,units,dic_size);
-		if(!str1)
-			return 0;
-		ft_print_word(str1);
-		free(str1);
-		str1 = ft_find_word(dic,"100",dic_size);
-		if (!str1)
-			return 0;
-		write(1,"-",1);
-		ft_print_word(str1);
-		free(str1);
-	}
-	
-	if (trio[1] == '1')
-	{
-		tens[0] = trio[1];
-		tens[1] = trio[2];
-		tens[2] = '\0';
-		str1 = ft_find_word(dic,tens,dic_size);
-		if (!str1)
-			return 0;
-		write(1,"-",1);
-		ft_print_word(str1);
-		free(str1);
-	}
-	else if (trio[1] > '1')
-	{
-		tens[0] = trio[1];
-		tens[1] = '0';
-		tens[2] = '\0';
-		str1 = ft_find_word(dic,tens,dic_size);
-		if (!str1)
-			return 0;
-		write(1,"-",1);
-		ft_print_word(str1);
-		free(str1);
-	}
-	
-	if (trio[2] > '0') {
-		units[0] = trio[2];
-		units[1] = '\0';
-		str1 = ft_find_word(dic,units,dic_size);	
-
-		if (!str1)
-			return 0;
-		write(1,"-",1);
-		ft_print_word(str1);
-		free(str1);
-
-	}
-	return 1;
-	free(tens);
-	free(units);
-}
-
-int	ft_print_number_text(char *num, int num_size, char* dic, int dic_size)
+//Esta es la funcion recursiva para imprimir de a tres. Retorna 1 si todo va bien, o 0 si falla algo.
+char	*ft_print_number_text(char *num, int last_pos, char* dic, int dic_size)
 {
 	char	*current;
-	char	*trio;
-	 
-	current = num + num_size;
-	trio = (char*)malloc(4);
-	ft_strcpy(trio, current - 3, 3);
-	ft_strcpy(current - 3, "000", 3);
-	if (num_size > 3)
+	char	*word;
+	char	*temp;
+	int		i;
+	
+	current = num + last_pos;
+	i = 0;
+	while (current[i] != '\0')
+		i++;
+	if (i % 3 == 1) //digits
 	{
-		return ft_print_number_text(num, num_size - 3, dic, dic_size);
+		temp = 0;
+		if (*(current - 1) == '1' && (current - 1) >= num)
+		{
+			temp = ft_strcpy(current - 1, 2);
+			last_pos--;
+		}
+		else if (*current != '0')
+			temp = t_strcpy(current, 1);
+		else
+			return ft_print_number_text(num, last_pos - 1, dic, dic_size); 
+		word = ft_find_word(dic,temp,dic_size);
+		free(temp);
+		if (!word)
+			return (0);
+		else
+		{
+			temp = ft_print_number_text(num, last_pos - 1, dic, dic_size);
+			return ft_wordcat(temp, word, '-');
+		}
 	}
-	ft_print_trio(trio,dic,dic_size);
-	return 1;
-	//sufix
+	else if (i % 3 == 2)
+	{
+		
+	} //tens
+	else if (i % 3++ == 0) //hundreds
+
+	word = ft_find_word(dic,num,dic_size);
+	if (word)
+	{
+		ft_print_word(word);
+		return (num_size);
+	}
+	return (0);
 }
 
 int	ft_get_dictionary(char *path, char *buffer)
@@ -249,7 +216,7 @@ int	main(int ac, char **av)
 	char	*number;
 	int		dictionary_size;
 	int 	print_result;
-	int		number_size;
+	int		last_pos;
 
 	if (ac != 3 && ac != 2)
 		return 0;
@@ -264,8 +231,8 @@ int	main(int ac, char **av)
 		dictionary_size = ft_get_dictionary("numbers.dict", dictionary);
 		number = av[1];
 	}
-	number_size = ft_strlen(number);
-	print_result = ft_print_number_text(number, number_size, dictionary, dictionary_size);
+	last_pos = ft_strlen(number) - 1;
+	print_result = ft_print_number_text(number, last_pos, dictionary, dictionary_size);
 	if(!print_result)
 		write(1, "Dict Error\n", 11);
 }
