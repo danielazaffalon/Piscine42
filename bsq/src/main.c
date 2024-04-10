@@ -14,27 +14,27 @@
 #include "map.h"
 #include "print.h"
 
-int	create_file(struct s_map *map)
+int	create_file()
 {
 	int		file;
 	char	c;
-	int		errors;
 
-	file = open("new.ox", O_RDWR | O_CREAT);
+	file = open("new.ox", O_RDWR | O_CREAT | O_TRUNC);
 	while (read(0, &c, 1) > 0)
 		write(file, &c, 1);
 	close(file);
-	if(file >= 0)
-		errors = ft_get_map("new.ox", &map);
-	if (!errors)
-	{
-		iterate_square(&map);
-		write_square("new.ox", &map);
-		print_square("new.ox");
-		free(map->graph);
-	}
+	if (file < 0)
+		return (1);
 	else
-		write(1, "Map error\n", 10);
+		return (0);
+}
+
+void	execute (char *path, struct s_map *map)
+{
+	iterate_square(map);
+	write_square(path, map);
+	print_square(path);
+	free(map->graph);
 }
 
 int	main(int ac, char **av)
@@ -44,7 +44,15 @@ int	main(int ac, char **av)
 	int				i;
 
 	if (ac == 1)
-		errors = create_file(&map);
+	{
+		errors = create_file();
+		if (!errors)
+			errors = ft_get_map("new.ox", &map);
+		if (!errors)
+			execute("new.ox",&map);
+		else
+			write(1, "Map error\n", 10);
+	}
 	else
 	{
 		i = 1;
@@ -52,12 +60,7 @@ int	main(int ac, char **av)
 		{
 			errors = ft_get_map(av[i], &map);
 			if (!errors)
-			{
-				iterate_square(&map);
-				write_square(av[i], &map);
-				print_square(av[i]);
-				free(map.graph);
-			}
+				execute(av[i],&map);
 			else
 				write(1, "Map error\n", 10);
 			i++;
