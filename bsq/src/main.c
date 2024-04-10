@@ -14,31 +14,38 @@
 #include "map.h"
 #include "print.h"
 
+int	create_file()
+{
+	int		file;
+	char	c;
+
+	file = open("new.ox", O_RDWR | O_CREAT);
+	while (read(0, &c, 1) > 0)
+		write(file, &c, 1);
+	write(file, "\0", 1);
+	close(file);
+	return(1);
+}
+
 int	main(int ac, char **av)
 {
 	struct s_map	map;
 	int				errors;
 	int				i;
-	int				file;
-	char			c;
-	char			cm;
 
-	if(ac == 1)
-	{
-		file = open("newExample.ox", O_RDWR | O_CREAT);
-		while (read(0, &c, 1) > 0 && cm != 'e' && c != 'x')
-		{
-			write(file, &c, 1);
-			cm = c;
-		}
-		write(1,"error",5);
-		close(file);
-		//print_square("newExample.ox");
-	}
-	i = 1;
+	i = 0;
 	while (i < ac)
 	{
-		errors = ft_get_map(av[i], &map);
+		if (ac == 1)
+		{
+			create_file();
+			errors = ft_get_map("new.ox", &map);
+		}
+		else
+		{
+			i = 1;
+			errors = ft_get_map(av[i], &map);
+		}
 		if (!errors)
 		{
 			iterate_square(&map);

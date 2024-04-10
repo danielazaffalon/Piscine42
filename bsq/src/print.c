@@ -19,6 +19,7 @@ int	write_square(char *path, struct s_map *map)
 	int		row;
 	int		col;
 
+	buff_c =0;
 	file = open(path, O_RDWR);
 	while (buff_c != '\n')
 		read(file, &buff_c, 1);
