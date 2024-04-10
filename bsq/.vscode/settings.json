@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "fcntl.h": "c",
+        "map.h": "c",
+        "iteration.h": "c",
+        "print.h": "c"
+    }
+}
