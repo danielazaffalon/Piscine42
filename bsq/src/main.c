@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:43:09 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/04/10 05:33:57 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:32:16 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 #include "map.h"
 #include "print.h"
 
-int	create_file()
+#include <stdio.h>
+
+int	create_file(void)
 {
 	int		file;
 	char	c;
 
-	file = open("new.ox", O_RDWR | O_CREAT | O_TRUNC);
+	file = open("new.ox", O_RDWR | O_CREAT);
 	while (read(0, &c, 1) > 0)
 		write(file, &c, 1);
 	close(file);
@@ -29,12 +31,19 @@ int	create_file()
 		return (0);
 }
 
-void	execute (char *path, struct s_map *map)
+void	exec(int errors, char *path, struct s_map *map)
 {
-	iterate_square(map);
-	write_square(path, map);
-	print_square(path);
-	free(map->graph);
+	if (!errors)
+		errors = ft_get_map("new.ox", map);
+	if (!errors)
+	{
+		iterate_square(map);
+		write_square(path, map);
+		print_square(path);
+		free(map->graph);
+	}
+	else
+		write(1, "Map error\n", 10);
 }
 
 int	main(int ac, char **av)
@@ -46,12 +55,7 @@ int	main(int ac, char **av)
 	if (ac == 1)
 	{
 		errors = create_file();
-		if (!errors)
-			errors = ft_get_map("new.ox", &map);
-		if (!errors)
-			execute("new.ox",&map);
-		else
-			write(1, "Map error\n", 10);
+		exec (errors, "new.ox", &map);
 	}
 	else
 	{
@@ -59,10 +63,7 @@ int	main(int ac, char **av)
 		while (i < ac)
 		{
 			errors = ft_get_map(av[i], &map);
-			if (!errors)
-				execute(av[i],&map);
-			else
-				write(1, "Map error\n", 10);
+			exec (errors, av[i], &map);
 			i++;
 		}
 	}

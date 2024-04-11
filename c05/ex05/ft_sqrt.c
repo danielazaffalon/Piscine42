@@ -6,15 +6,15 @@
 /*   By: dazaffal <dazaffal@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:40:28 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/04/03 16:52:12 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:08:55 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include <stdio.h>
 int	ft_sqrt_cal(int n, int nb)
 {
-	int	rta;
-	int	mult;
+	int	rt;;a
+eint	mult;
 
 	mult = n * n;
 	if (mult < nb)

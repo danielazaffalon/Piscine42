@@ -6,7 +6,7 @@
 /*   By: dazaffal <dazaffal@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 04:13:09 by dazaffal          #+#    #+#             */
-/*   Updated: 2024/04/10 04:19:10 by dazaffal         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:36:28 by dazaffal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	write_square(char *path, struct s_map *map)
 	int		row;
 	int		col;
 
-	buff_c =0;
+	buff_c = 0;
 	file = open(path, O_RDWR);
 	while (buff_c != '\n')
 		read(file, &buff_c, 1);

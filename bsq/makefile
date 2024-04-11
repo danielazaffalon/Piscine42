@@ -19,4 +19,4 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(DEPS)
 
 .PHONY : fclean
 fclean:
-	@rm -rf $(OBJ_DIR) bsq
+	@rm -rf $(OBJ_DIR) ./bsq
