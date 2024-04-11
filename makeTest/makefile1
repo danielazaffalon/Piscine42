@@ -1,0 +1,16 @@
+all: program
+#Esta regla compila el programa principal
+program: main.o first.o second.o
+	cc -o programa main.o first.o second.o
+
+main.o: main.c header.h
+	cc -c main.c
+
+first.o: first.c header.h
+	cc -c first.c
+
+second.o: second.c header.h
+	cc -c second.c
+
+clean:
+	rm -f programa *.o
