@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "print.h"
+#include <errno.h>
 
+// printf("error:%i\n",errno);
 int	write_square(char *path, struct s_map *map)
 {
 	int		file;

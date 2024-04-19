@@ -89,6 +89,8 @@ int	ft_parse_graph(struct s_map *map, int file)
 	{
 		if (map->graph[i] != '\n')
 		{
+			if (map->graph[i] != map->empty_c && map->graph[i] != map->obst_c)
+				return (1);
 			i++;
 			j++;
 		}
